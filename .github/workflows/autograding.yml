@@ -1,0 +1,50 @@
+name: Autograding
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  autograding:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install --no-cache-dir numpy matplotlib pytest nbformat
+
+      - name: Run attention implementation tests
+        id: test_attention
+        run: |
+          echo "::group::Running attention implementation tests"
+          pytest tests/test_attention.py -v --tb=short 2>&1 || true
+          echo "::endgroup::"
+
+      - name: Run notebook structure tests
+        id: test_notebook
+        run: |
+          echo "::group::Running notebook structure tests"
+          pytest tests/test_notebook_structure.py -v --tb=short 2>&1 || true
+          echo "::endgroup::"
+
+      - name: Generate grading summary
+        if: always()
+        run: |
+          echo "## Lab 2 — Autograding Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Attention Implementation Tests" >> $GITHUB_STEP_SUMMARY
+          pytest tests/test_attention.py -v --tb=line 2>&1 | tail -25 >> $GITHUB_STEP_SUMMARY || true
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Notebook Structure Tests" >> $GITHUB_STEP_SUMMARY
+          pytest tests/test_notebook_structure.py -v --tb=line 2>&1 | tail -15 >> $GITHUB_STEP_SUMMARY || true
