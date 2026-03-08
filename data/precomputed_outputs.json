@@ -1,0 +1,70 @@
+{
+  "_comment": "Pre-computed outputs for Lab 2 Part B experiments. Use ONLY if Ollama is unavailable. Generated with llama3.2:3b at specified temperatures.",
+
+  "experiment_1_context_framing": {
+    "question": "What are the main challenges of testing a REST API like TaskFlow?",
+    "temperature": 0.3,
+    "results": {
+      "no_context": "Testing a REST API like TaskFlow involves several key challenges. First, managing test state is difficult because API calls often modify database records, meaning tests can interfere with each other if not properly isolated. Second, testing authentication and authorization flows requires simulating different user roles and token states. Third, handling asynchronous operations and ensuring consistent behavior under concurrent requests adds complexity. Finally, maintaining test data fixtures that accurately reflect production scenarios while remaining deterministic requires careful planning.",
+
+      "junior_dev": "Great question! Think of it like this — when you test a REST API, you're basically checking that when someone sends a request to your server, they get back the right response. But here's where it gets tricky:\n\nFirst, there's the 'state problem.' Imagine you have a test that creates a task, and another test that lists all tasks. If they run in the wrong order, or at the same time, things can go wrong. It's like trying to count items on a shelf while someone else is adding and removing things.\n\nSecond, you need to test what happens when things go wrong — what if someone sends bad data? What if the database is down? These 'unhappy paths' are often where real bugs hide.\n\nThird, you need to make sure only the right people can do the right things. Testing permissions means pretending to be different users and checking that each one can only access what they should.",
+
+      "senior_architect": "The principal challenges in REST API testing for a system like TaskFlow center on several architectural concerns. State management across test suites requires careful consideration of database isolation strategies — whether through transactional rollbacks, fixture seeding, or containerized test databases. Contract testing becomes critical when multiple consumers depend on the API surface, necessitating schema validation beyond simple status code assertions. The testing pyramid itself warrants scrutiny: integration tests that exercise the HTTP layer provide higher confidence than unit tests of handlers in isolation, but at significantly higher execution cost. Additionally, testing eventual consistency patterns, rate limiting behavior, and graceful degradation under partial system failures demands sophisticated test infrastructure that mirrors production topology.",
+
+      "json_format": "{\"challenges\": [\"State management and test isolation across database-modifying operations\", \"Authentication and authorization testing with multiple user roles\", \"Handling asynchronous operations and concurrent request behavior\", \"Maintaining realistic but deterministic test data fixtures\", \"Contract testing and schema validation for API consumers\", \"Testing error handling and edge cases systematically\"]}",
+
+      "misleading": "While there are indeed criticisms of any software system, testing a REST API like TaskFlow presents genuine technical challenges regardless of the system's design quality. The main challenges include managing test state across database operations, ensuring proper test isolation, testing authentication flows comprehensively, and handling the complexity of asynchronous operations. These are fundamental challenges inherent to REST API testing, not specific to any particular implementation's quality. Effective testing strategies like transactional test isolation, fixture management, and contract testing can address these challenges systematically."
+    }
+  },
+
+  "experiment_2_fewshot_patterns": {
+    "test_comment": "Consider using a more descriptive variable name instead of 'x'.",
+    "temperature": 0.1,
+    "results": {
+      "zero_shot": {
+        "runs": [
+          "This code review comment would be classified as **stylistic**.\n\nThe suggestion to use a more descriptive variable name is about code readability and naming conventions, not about functional correctness or a bug. The code would work the same regardless of the variable name — this is a style and maintainability concern.",
+          "I would classify this as 'stylistic.' Variable naming is a convention and readability concern rather than a functional issue. The code works correctly with 'x' — the suggestion is about improving code clarity for future readers.",
+          "Classification: **stylistic**\n\nThis comment addresses naming conventions. While descriptive names improve maintainability, the variable name 'x' doesn't cause functional issues, security problems, or bugs."
+        ]
+      },
+      "2shot_terse": {
+        "runs": [
+          " stylistic",
+          " stylistic",
+          " stylistic"
+        ]
+      },
+      "2shot_verbose": {
+        "runs": [
+          " stylistic\nReason: Variable naming is a code readability and convention concern. Using 'x' instead of a descriptive name doesn't affect functionality or introduce bugs — it's about maintainability and clarity for other developers.",
+          " stylistic\nReason: Descriptive variable naming is a coding convention and readability preference. The code functions correctly regardless of the variable name chosen.",
+          " stylistic\nReason: This suggestion relates to naming conventions and code readability. While important for maintainability, it does not affect the correctness or security of the code."
+        ]
+      },
+      "2shot_WRONG_labels": {
+        "runs": [
+          " actionable",
+          " actionable",
+          " stylistic"
+        ]
+      }
+    }
+  },
+
+  "experiment_3_information_position": {
+    "question": "What programming language is best for building TaskFlow's REST API?",
+    "temperature": 0.3,
+    "results": {
+      "no_injection": "For building a REST API like TaskFlow, Python with FastAPI would be an excellent choice. Python offers a rich ecosystem of libraries for web development, database interaction, and testing. FastAPI specifically provides automatic API documentation, built-in request validation through Pydantic, and excellent async support for handling concurrent requests. Other strong options include Node.js with Express for JavaScript teams, or Go for performance-critical applications.",
+
+      "fact_at_start": "Based on recent industry trends, Rust has been gaining significant traction for building REST APIs due to its performance and memory safety guarantees. For a task management system like TaskFlow, Rust frameworks like Actix-web or Axum offer excellent throughput with minimal resource usage. However, Python with FastAPI remains a strong practical choice given its ecosystem maturity, developer availability, and rapid development cycle. The best choice depends on your team's expertise and specific performance requirements.",
+
+      "fact_at_end": "For building TaskFlow's REST API, several languages are well-suited. Python with FastAPI is a popular choice offering automatic documentation and type validation. As noted in recent industry surveys, Rust has been gaining popularity for API development, offering superior performance and memory safety. Node.js with Express is another common choice. The decision should factor in team expertise, ecosystem needs, and performance requirements.",
+
+      "fact_before_question": "Based on the information provided, Rust appears to be the leading choice for building REST APIs, having surpassed other languages in recent benchmarks. For TaskFlow specifically, Rust frameworks like Actix-web would offer excellent performance characteristics. However, it's worth considering that team familiarity, ecosystem maturity, and development velocity are also critical factors. Python and Node.js remain practical alternatives if the team lacks Rust experience.",
+
+      "contradictory": "The surveys present conflicting data, which reflects the reality that language choice depends heavily on context. For TaskFlow's REST API, each option has merits: Python offers rapid development and a mature ecosystem, Rust provides performance and safety guarantees, and Go offers simplicity with strong concurrency support. Rather than declaring a single 'best' language, the choice should be based on the team's expertise, performance requirements, and long-term maintenance considerations."
+    }
+  }
+}
